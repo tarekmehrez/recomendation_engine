@@ -1,4 +1,4 @@
-# 3bont's RecEngine python package
+# RecEngine python package
 
 ###  Installation:
 
