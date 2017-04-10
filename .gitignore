@@ -1,0 +1,8 @@
+data/*
+assignment.txt
+**/.DS_Store
+*.pyc
+build/*
+dist/*
+scripts/datatry/*
+scripts/data/*
