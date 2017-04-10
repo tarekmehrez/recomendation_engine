@@ -2,7 +2,7 @@
 
 ###  Installation:
 
-1. all dependencies must be installed with 'sudo pip install <package>' (gensim, polyglot, nltk)
+1. install dependencies must with 'pip install <package>' (gensim, polyglot, nltk)
 
 2. nltk stop words must be downloaded via the nltk downlaod module
 in ipython:
@@ -95,52 +95,3 @@ in ipython:
     from tbont_text_engine.utils import io
     io.read('file.txt')
     ```
-
-### Instructions for integration:
-
-#### Right a script that does the following (single run)
-
-1. Run the database_query script to get all data (articles) available so far
-2. Read all english articles using the io module
-3. Run the NLP pipeline for each article
-4. Save entities (and their frequencies) in the DB
-5. Create a new vector space for english by passing the articles (only tokens) to the LSIModel class
-5. Save the english model file to disk
-7. Repeat all steps for arabic to train a SEPARATE model
-
-**NOTE: remember to take the language factor into account when querying/updating vectors, as both vector spaces
-for english are arabic are totally different**
-
-#### Integration with Crawler's code
-For a new collection of crawled articles:
-1. run the NLP pipeline to extract tokens and entities
-2. load the model from disk
-3. run model.update_model with the new articles' tokens
-4. save the update model back to disk
-
-#### To calculate nearest 5 articles per article/entity
-**For each language/entity (we will need to keep track of language of entity as well, (UPDATE THE DB ACCORDINGLY)):**
-1. query the db for all articles' vectors within the last week
-2. dont forget to separate them by language
-3. calculate similarity between the given article/entity and other articles using the arithmetic module
-4. Save results (closest articles' IDs) back in DB
-
-#### User onboarding
-1. Get all entities user has selected
-2. Get their vectors
-3. Average them using the arithmetic module
-4. Initialize the user's vector to be the output of this averaging
-5. We will need to save the user's selected entities (UPDATE THE DB ACCORDINGLY)
-
-#### Update user profile
-1. Get user vector
-2. Get vectors of all articles this user likes/clicked on
-3. Average all vectors using the arithmetic module
-4. Update the user's vector to be the output of this averaging
-
-#### Get user timeline
-1. Select recent articles (within a certain time frame)
-2. Get nearest N artilces to the user's vector
-3. In case N was less than the required amount of articles for the timeline, select the articles that has the same entities that the user selected in the onboarding
-4. sort them chronologically (would be nice to do that per time period, each 15/30 mins)
-5. return sorted timeline
